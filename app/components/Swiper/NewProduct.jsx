@@ -6,7 +6,8 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import { FreeMode, Pagination } from "swiper/modules";
 import Img1 from "@/public/Images/Product/1.webp"
-
+import Img2 from "@/public/Images/Product/2.png"
+import Img3 from "@/public/Images/Product/3.png"
 export default function NewProductSwiper() {
   const product = [
     {
@@ -18,15 +19,15 @@ export default function NewProductSwiper() {
     },
     {
       id: 2,
-      img: Img1,
-      Title: "[พร้อมส่ง] Farland (TH/EN) ฟาร์แลนด์",
+      img: Img2,
+      Title: "[พร้อมส่ง] For Sale (TH) บ้านนี้ขาย!",
       detail: "eiei",
       price: 2890,
     },
     {
       id: 3,
-      img: Img1,
-      Title: "[พร้อมส่ง] Farland (TH/EN) ฟาร์แลนด์",
+      img: Img3,
+      Title: "[พร้อมส่ง] I'm the Boss (TH) อย่าซ่ากับบอส",
       detail: "eiei",
       price: 1890,
     },
@@ -41,15 +42,15 @@ export default function NewProductSwiper() {
     }
   }, []);
 
-  const addToCart = (productId) => {
+  const addToCart = (productId,productimg,productTitle,productdetail,productPrice) => {
     setCart(prevCart => {
     
         const newItem = {
           id: productId,
-          img: Img1,
-          Title: "[พร้อมส่ง] Farland (TH/EN) ฟาร์แลนด์",
-          detail: "eiei",
-          price: 5890,
+          img: productimg,
+          Title: productTitle,
+          detail: productdetail,
+          price: productPrice,
         };
         const updatedCart = [...prevCart, newItem];
         localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -68,11 +69,11 @@ export default function NewProductSwiper() {
     >
       {product.map((data) => (
         <SwiperSlide className=" !flex !w-[320px] gap-4" key={data.id}>
-          <div href={`/product/${data.id}`} passHref>
+          <div >
             <div className="rounded-xl shadow-xl  hover:shadow-3xl">
               <div className="grid grid-col-3 items-center rounded-xl  duration-500 ">
                 <div className="relative">
-                  <Image src={Img1} alt="" className="rounded-t-xl w-full" />
+                  <Image src={data.img} alt="" className="rounded-t-xl w-full" />
                   <div className="flex  px-7  ">
                     <div className="flex flex-col  w-full h-auto">
                       <span className="text-md  font-bold pt-4">
@@ -85,7 +86,7 @@ export default function NewProductSwiper() {
                   </div>
                   <div
                     className="p-4 bg-yellow-500 text-white font-bold text-center rounded-b-xl cursor-pointer"
-                    onClick={() => addToCart(data.id)}
+                    onClick={() => addToCart(data.id,data.img,data.Title,data.detail,data.price)}
                   >
                     หยิบใส่รถเข็น
                   </div>

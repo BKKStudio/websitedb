@@ -21,11 +21,16 @@ export default function Navbar() {
   const [RegisOpen, setRegisOpen] = useState(false);
   const [MarketOpen, setMarketOpen] = useState(false);
   const [Hamberger, setHamberger] = useState(false);
+  const [theme,setTheme] = useState("")
+  const  handletheme = () => {
+    setTheme(localStorage.getItem("theme"))
+  }
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
+
   }, [cart]);
 
   return (
@@ -37,6 +42,8 @@ export default function Navbar() {
         setMarketOpen={setMarketOpen}
         cart={cart}
         setCart={setCart}
+        theme={theme}
+        setTheme={setTheme}
       />
       <nav className="flex justify-center max-lg:px-3 shadow-xl">
         <div className="max-w-7xl w-full h-full flex  gap-3 justify-center">
@@ -81,7 +88,10 @@ export default function Navbar() {
             </div>
             <button
               className="flex relative items-center w-ful h-full"
-              onClick={() => setMarketOpen(!MarketOpen)}
+              onClick={() => {
+                setMarketOpen(!MarketOpen)
+                handletheme()
+              }}
             >
               <SlBasket size={35} className="pr-2" />
               <div className="absolute w-full h-full flex items-center justify-end pb-5 z-0">

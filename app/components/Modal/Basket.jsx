@@ -4,7 +4,7 @@ import Logolight from "@/public/Images/Logo/Logolight.png";
 import Image from "next/image";
 import { SlBasket } from "react-icons/sl";
 
-export default function BasketModal({ MarketOpen, setMarketOpen}) {
+export default function BasketModal({ MarketOpen, setMarketOpen,theme,setTheme}) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   // State for cart items
@@ -25,24 +25,29 @@ export default function BasketModal({ MarketOpen, setMarketOpen}) {
       setCart(JSON.parse(savedCart));
       
       // Calculate initial total price from the cart items
-      const initialTotalPrice = JSON.parse(savedCart).reduce((total, item) => total + item.price, 0);
-      setTotalPrice(initialTotalPrice);
+
     }
   }, [cart]);
+
+
+
+
+
+
   return (
     <React.Fragment>
       {/* Backdrop */}
       <div className={`fixed w-full h-full z-110 flex justify-end z-50 ${MarketOpen ? "visible bg-black/60" : "invisible"}`}>
         {/* Modal */}
-        <div className={`${MarketOpen ? "lg:w-[584px] overflow-hidden max-lg:w-full opacity-100 duration-500" : "w-0 opacity-0 duration-500"}`}>
+        <div className={`${MarketOpen ? "lg:w-[584px] overflow-hidden max-lg:w-full opacity-100 duration-500 " : "w-0 opacity-0 duration-500"} ${theme == "dark" ? "bg-black" : "bg-white"}`}>
           <div className="w-full flex justify-end">
-            <div className="w-full bg-white flex justify-center py-4 h-screen">
+            <div className="w-full  flex justify-center py-4 h-screen">
               <div className="w-full px-4 flex flex-col gap-3">
-                <button className="rounded-full bg-white" onClick={() => setMarketOpen(false)}>
+                <button className="rounded-full " onClick={() => setMarketOpen(false)}>
                   <FaArrowCircleRight size={35} />
                 </button>
 
-                <div className="bg-gray-200 rounded-xl w-full flex overflow-hidden justify-between p-3">
+                <div className={` rounded-xl w-full flex overflow-hidden justify-between p-3 ${theme == "dark" ? "" : "bg-gray-200"}`}>
                   <div className="flex items-center gap-1 font-bold">
                     <SlBasket size={25} />
                     รถเข็น
@@ -57,7 +62,7 @@ export default function BasketModal({ MarketOpen, setMarketOpen}) {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-200 rounded-xl w-full flex overflow-auto justify-between p-3">
+                <div className={`rounded-xl w-full flex overflow-auto justify-between p-3 ${theme == "dark" ? "" : "bg-gray-200"}`}>
                   <div className="w-full h-[584px] flex flex-col gap-2">
                     <div className="flex justify-between w-full font-bold">
                       <span className="px-10">ชื่อสินค้า</span>
