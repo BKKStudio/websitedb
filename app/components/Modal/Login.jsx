@@ -17,7 +17,7 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
 
   const Onlogin = async () => {
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${process.env.DOMAIN}/api/product`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

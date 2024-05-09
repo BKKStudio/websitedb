@@ -20,7 +20,7 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
       return;
     }
     try {
-      const res = await fetch("/api/signup", {
+      const res = await fetch(`${process.env.DOMAIN}/api/signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

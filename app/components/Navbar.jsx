@@ -171,16 +171,6 @@ export default function Navbar({ request }) {
             </button>
             <button
               className={`${
-                dataUser != null
-                  ? "bg-red-600 text-white p-3 rounded-xl max-lg:hidden"
-                  : "hidden"
-              }`}
-              onClick={onLogout}
-            >
-              ออกจากระบบ
-            </button>
-            <button
-              className={`${
                 dataUser != null  && dataUser.isAdmin === true 
                   ? "bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
                   : "hidden"
@@ -188,6 +178,16 @@ export default function Navbar({ request }) {
               onClick={() => setLoginOpen(!LoginOpen)}
             >
               Admin manage
+            </button>
+            <button
+              className={`${
+                dataUser != null
+                  ? "bg-red-600 text-white p-3 rounded-xl max-lg:hidden"
+                  : "hidden"
+              }`}
+              onClick={onLogout}
+            >
+              ออกจากระบบ
             </button>
             <button
               className={`${
