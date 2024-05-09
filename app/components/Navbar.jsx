@@ -51,7 +51,7 @@ export default function Navbar({ request }) {
 
   const onLogout = async () => {
     try {
-      const res = await fetch("/api/logout", {
+      const res = await fetch(`${process.env.DOMAIN}/api/logout`, {
         cache: "no-store",
       });
       if (!res.ok) {
