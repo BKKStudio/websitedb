@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/Theme/provider";
+import Footer from "./components/Footer";
 
 
 export default function RootLayout({ children }) {
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           {children}
+          <Footer/>
         </ThemeProvider>
       </body>
     </html>

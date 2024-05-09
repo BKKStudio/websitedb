@@ -1,8 +1,34 @@
+"use client"
 import React from "react";
 import { BsXLg } from "react-icons/bs";
 import Logolight from "@/public/Images/Logo/Logolight.png";
 import Image from "next/image";
+import { useState } from "react";
+
+
+
 export default function LoginModal({ LoginOpen, setLoginOpen }) {
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
+
+
+  const Onlogin = async () => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("Login success", response.data);
+    } catch (error) {
+      console.log("Login failed", error.message);
+    }
+  };
   return (
     <React.Fragment>
       {/* //BackDrop */}
@@ -45,7 +71,7 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                   <div className="text-3xl text-center font-bold">
                     เข้าสู่ระบบ
                   </div>
-                  <form method="post" className="w-full flex flex-col gap-3">
+                  <form method="post" className="w-full flex flex-col gap-3"  onSubmit={Onlogin}>
                     <div className="flex ">
                       <label
                         htmlFor="Username"
@@ -55,23 +81,27 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                       </label>
                       <input
                         type="text"
-                        name="Username"
-                        id="Username"
+                        name="username"
+                        id="username"
+                        value={user.username}
+                        onChange={(e) => setUser({ ...user, username: e.target.value })}
                         className="bg-gray-200 rounded-r-xl"
                         placeholder="  กรอกชื่อผู้ใช้ของคุณ"
                       />
                     </div>
                     <div className="flex ">
                       <label
-                        htmlFor="Username"
+                        htmlFor="password"
                         className="bg-black text-white w-20 text-center font-bold py-2 text-[12px] rounded-l-xl"
                       >
                         Password
                       </label>
                       <input
-                        type="text"
-                        name="Username"
-                        id="Username"
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={user.password}
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}
                         className="bg-gray-200 rounded-r-xl"
                         placeholder="  กรอกรหัสผ่านของคุณ"
                       />
@@ -90,7 +120,7 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                         สมัครสมาชิก
                       </label>
                     </div>
-                    <button type="submit" className="bg-yellow-500 p-2 text-white font-bold rounded-xl">เข้าสู่ระบบ</button>
+                    <button type="submit" className="bg-yellow-500 p-2 text-white font-bold rounded-xl" onClick={Onlogin}>เข้าสู่ระบบ</button>
                   </form>
                 </div>
               </div>

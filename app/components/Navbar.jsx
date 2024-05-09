@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { createContext } from "react";
 import Image from "next/image";
 import Logolight from "@/public/Images/Logo/Logolight.png";
 import { FaHome } from "react-icons/fa";
@@ -14,23 +14,67 @@ import { BsXLg } from "react-icons/bs";
 import BasketModal from "./Modal/Basket";
 import { ModeToggle } from "./Theme/btntoggle";
 import { useEffect, useState } from "react";
+import Swal from 'sweetalert2'
 
-export default function Navbar() {
+export default function Navbar({ request }) {
   const [cart, setCart] = useState([]);
   const [LoginOpen, setLoginOpen] = useState(false);
   const [RegisOpen, setRegisOpen] = useState(false);
   const [MarketOpen, setMarketOpen] = useState(false);
   const [Hamberger, setHamberger] = useState(false);
-  const [theme,setTheme] = useState("")
-  const  handletheme = () => {
-    setTheme(localStorage.getItem("theme"))
-  }
-  useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
+  const [theme, setTheme] = useState("");
+  const [dataUser, setdataUser] = useState(null);
 
+  const handletheme = () => {
+    setTheme(localStorage.getItem("theme"));
+  };
+
+  const getUser = async () => {
+    try {
+      const res = await fetch(`/api/user`, {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+      Swal.fire({
+        title: "Log in!",
+        text: "Login Success",
+        icon: "success"
+      });
+      return res.json();
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to handle it in the component
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed Fetch Data");
+      }
+      setdataUser(null);
+      Swal.fire({
+        title: "Log Out!",
+        text: "LogOut Success",
+        icon: "success"
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    // const savedCart = localStorage.getItem("cart");
+    // if (savedCart) {
+    //   setCart(JSON.parse(savedCart));
+    // }
+    getUser()
+      .then((data) => setdataUser(data))
+      .catch((error) => console.log(error));
   }, [cart]);
 
   return (
@@ -45,7 +89,7 @@ export default function Navbar() {
         theme={theme}
         setTheme={setTheme}
       />
-      <nav className="flex justify-center max-lg:px-3 shadow-xl">
+      <nav className="flex justify-center max-lg:px-3 ">
         <div className="max-w-7xl w-full h-full flex  gap-3 justify-center">
           <Image
             src={Logolight}
@@ -62,35 +106,50 @@ export default function Navbar() {
             className="lg:hidden"
           ></Image>
           <div className="flex gap-6 w-full max-lg:hidden font-bold ">
-            <Link href={""} className="flex  gap-1 items-center w-max  ">
+            <Link href={"/"} className="flex  gap-1 items-center w-max  ">
               <div>
-                <FaHome size={15} />
+                <FaHome size={25} />
               </div>
               <div className="w-max">หน้าหลัก</div>
             </Link>
-            <Link href={""} className="flex gap-1 items-center w-max">
-              <IoGameControllerSharp size={15} />
+            <Link
+              href={"/pages/Allproducts"}
+              className="flex gap-1 items-center w-max"
+            >
+              <IoGameControllerSharp size={25} />
               <div className="w-max">บอร์ดเกมทั้งหมด</div>
             </Link>
             <Link href={""} className="flex gap-1 items-center w-max">
-              <FaMoneyCheckDollar size={15} />
+              <FaMoneyCheckDollar size={25} />
               <div className="w-max">บอร์ดเกมแนะนำ</div>
             </Link>
           </div>
           <div className="flex items-center justify-end w-full gap-3">
             <ModeToggle />
             <div className="text-end max-lg:hidden">
-              <p className="font-bold">Username</p>
-              <p className="text-[12px]">Name lastname</p>
+              <p className="font-bold">
+                {dataUser == null ? "กรุณาเข้าสู่ระบบ" : dataUser.username}
+              </p>
+              <p className="text-[12px]">
+                {dataUser == null ? "กรุณาเข้าสู่ระบบ" : dataUser.name}
+              </p>
             </div>
-            <div className="flex items-center justify-center bg-purple-800 text-white rounded-full w-10 h-10 text-center">
-              p
-            </div>
+            {dataUser == null ? (
+              <div className="flex items-center justify-center bg-purple-800 text-white rounded-full w-10 h-10 text-center">
+                p
+              </div>
+            ) : (
+              <img
+                src={dataUser.img}
+                alt=""
+                className="w-10 h-10 rounded-full"
+              ></img>
+            )}
             <button
               className="flex relative items-center w-ful h-full"
               onClick={() => {
-                setMarketOpen(!MarketOpen)
-                handletheme()
+                setMarketOpen(!MarketOpen);
+                handletheme();
               }}
             >
               <SlBasket size={35} className="pr-2" />
@@ -101,13 +160,41 @@ export default function Navbar() {
               </div>
             </button>
             <button
-              className="bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
+              className={`${
+                dataUser == null
+                  ? "bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
+                  : "hidden"
+              }`}
               onClick={() => setLoginOpen(!LoginOpen)}
             >
               เข้าสู่ระบบ
             </button>
             <button
-              className="bg-yellow-500 text-white p-3 rounded-xl max-lg:hidden"
+              className={`${
+                dataUser != null
+                  ? "bg-red-600 text-white p-3 rounded-xl max-lg:hidden"
+                  : "hidden"
+              }`}
+              onClick={onLogout}
+            >
+              ออกจากระบบ
+            </button>
+            <button
+              className={`${
+                dataUser != null  && dataUser.isAdmin === true 
+                  ? "bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
+                  : "hidden"
+              }`}
+              onClick={() => setLoginOpen(!LoginOpen)}
+            >
+              Admin manage
+            </button>
+            <button
+              className={`${
+                dataUser == null
+                  ? "bg-yellow-500 text-white p-3 rounded-xl max-lg:hidden"
+                  : "hidden"
+              } `}
               onClick={() => setRegisOpen(!RegisOpen)}
             >
               สมัครสมาชิก
