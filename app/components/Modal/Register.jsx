@@ -4,9 +4,11 @@ import { BsXLg } from "react-icons/bs";
 import Logolight from "@/public/Images/Logo/Logolight.png";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import Swal from 'sweetalert2'
 
 export default function RegisterModal({ RegisOpen, setRegisOpen }) {
   const [user, setUser] = React.useState({
+    avatar: "",
     name: "",
     username: "",
     password: "",
@@ -20,7 +22,7 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
       return;
     }
     try {
-      const res = await fetch(`${process.env.DOMAIN}/api/signup`, {
+      const res = await fetch(`/api/signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -28,8 +30,21 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
         body: JSON.stringify(user),
       });
       if (res.ok) {
-          setRegisOpen(false)
+        setRegisOpen(false);
+        Swal.fire({
+          position: "top-end",
+          icon: "สมัครสมาชิกสำเร็จ",
+          title: "กรุณาล็อคอินเพื่อเข้าสู่่ระบบ",
+          showConfirmButton: false,
+          timer: 1500
+        });
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "เกิดข้อผิดพลาด",
+          text: "สมัครสมาชิกไม่สำเร็จ",
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
         throw new Error("Failed to Add Admins");
       }
     } catch (error) {
@@ -39,12 +54,13 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    setRegisOpen(false)
+    setRegisOpen(false);
   };
 
   //Validate
   useEffect(() => {
     if (
+      user.avatar.length > 0 &&
       user.name.length > 0 &&
       user.username.length > 0 &&
       user.password.length > 0
@@ -75,7 +91,7 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
                 className="p-3 rounded-full bg-white"
                 onClick={handleClick}
               >
-                <BsXLg className="text-black"/>
+                <BsXLg className="text-black" />
               </button>
             </div>
           </div>
@@ -99,6 +115,26 @@ export default function RegisterModal({ RegisOpen, setRegisOpen }) {
                     className="w-full flex flex-col gap-3"
                     onSubmit={handleSubmit}
                   >
+                    <div className="flex ">
+                      <label
+                        htmlFor="img"
+                        className="bg-black text-white w-28 text-center font-bold py-2 text-[12px] rounded-l-xl"
+                      >
+                        Avatar
+                      </label>
+                      <input
+                        type="text"
+                        name="img"
+                        id="img"
+                        value={user.avatar}
+                        onChange={(ev) =>
+                          setUser({ ...user, avatar: ev.target.value })
+                        }
+                        className="bg-gray-200 rounded-r-xl text-[13px] w-full  text-black"
+                        placeholder="  กรอกลิงค์รูปโปรไฟล์ของคุณ"
+                        required
+                      />
+                    </div>
                     <div className="flex ">
                       <label
                         htmlFor="name"

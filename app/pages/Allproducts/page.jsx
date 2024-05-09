@@ -14,7 +14,7 @@ export default function page() {
     async function fetchData() {
       try {
         // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`${process.env.DOMAIN}/api/product`); // Example API endpoint
+        const response = await fetch(`/api/product`); // Example API endpoint
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -22,28 +22,27 @@ export default function page() {
       }
     }
 
-    fetchData();
+   fetchData();
   }, []);
 
   return (
     <>
-      <Navbar />
       <main className="w-full flex  justify-center">
         <article className="max-w-7xl w-full">
           <Image src={Img1} alt="" className="w-full"></Image>
           <div className="flex justify-center">
             <span className="text-3xl text-center mt-4">สินค้าทั้งหมด</span>
           </div>
-          <div className="w-full grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 items-center  gap-24">
+          <div className="w-full flex justify-between max-lg:justify-center flex-wrap gap-12 mt-4 ">
             {products.map((product) => {
               return (
                 <div
-                  className=" !flex !w-[320px] !justify-center  !h-full gap-4"
+                  className=" flex w-[220px] justify-center  !h-full gap-4"
                   key={product.id}
                 >
                   <div className="w-full h-full">
                     <div className="rounded-xl shadow-xl  hover:shadow-3xl">
-                      <div className="grid grid-col-3 items-center rounded-xl  duration-500 ">
+                      <div className="grid grid-col-3 items-center rounded-xl items-center w-full duration-500 ">
                         <div className="relative">
                           <img
                             src={product.img}
@@ -87,4 +86,3 @@ export default function page() {
     </>
   );
 }
-

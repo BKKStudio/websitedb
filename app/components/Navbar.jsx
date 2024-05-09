@@ -14,7 +14,9 @@ import { BsXLg } from "react-icons/bs";
 import BasketModal from "./Modal/Basket";
 import { ModeToggle } from "./Theme/btntoggle";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { BsBasket2,BsFillPersonFill  } from "react-icons/bs";
+
 
 export default function Navbar({ request }) {
   const [cart, setCart] = useState([]);
@@ -37,11 +39,6 @@ export default function Navbar({ request }) {
       if (!res.ok) {
         throw new Error("Failed to fetch user data");
       }
-      Swal.fire({
-        title: "Log in!",
-        text: "Login Success",
-        icon: "success"
-      });
       return res.json();
     } catch (error) {
       console.error(error);
@@ -51,18 +48,21 @@ export default function Navbar({ request }) {
 
   const onLogout = async () => {
     try {
-      const res = await fetch(`${process.env.DOMAIN}/api/logout`, {
+      const res = await fetch(`/api/logout`, {
         cache: "no-store",
       });
       if (!res.ok) {
         throw new Error("Failed Fetch Data");
+      } else {
+        setdataUser(null);
+       if(dataUser){
+        Swal.fire({
+          title: "Log Out!",
+          text: "LogOut Success",
+          icon: "success",
+        });
+       }
       }
-      setdataUser(null);
-      Swal.fire({
-        title: "Log Out!",
-        text: "LogOut Success",
-        icon: "success"
-      });
     } catch (error) {
       console.log(error);
     }
@@ -72,9 +72,11 @@ export default function Navbar({ request }) {
     // if (savedCart) {
     //   setCart(JSON.parse(savedCart));
     // }
-    getUser()
-      .then((data) => setdataUser(data))
-      .catch((error) => console.log(error));
+    if (dataUser === null) {
+      getUser()
+        .then((data) => setdataUser(data))
+        .catch((error) => console.log(error));
+    }
   }, [cart]);
 
   return (
@@ -89,7 +91,7 @@ export default function Navbar({ request }) {
         theme={theme}
         setTheme={setTheme}
       />
-      <nav className="flex justify-center max-lg:px-3 ">
+      <nav className="flex justify-center max-xl:px-3 ">
         <div className="max-w-7xl w-full h-full flex  gap-3 justify-center">
           <Image
             src={Logolight}
@@ -105,7 +107,13 @@ export default function Navbar({ request }) {
             height={100}
             className="lg:hidden"
           ></Image>
-          <div className="flex gap-6 w-full max-lg:hidden font-bold ">
+          <div
+            className={`${
+              dataUser != null && dataUser.isAdmin === true
+                ? "hidden"
+                : "flex gap-6 w-full max-xl:hidden font-bold"
+            }`}
+          >
             <Link href={"/"} className="flex  gap-1 items-center w-max  ">
               <div>
                 <FaHome size={25} />
@@ -122,6 +130,39 @@ export default function Navbar({ request }) {
             <Link href={""} className="flex gap-1 items-center w-max">
               <FaMoneyCheckDollar size={25} />
               <div className="w-max">บอร์ดเกมแนะนำ</div>
+            </Link>
+          </div>
+
+          {/* Admin Nav */}
+          <div
+            className={`${
+              dataUser != null && dataUser.isAdmin === true
+                ? "flex gap-6 w-full max-xl:hidden font-bold"
+                : "hidden"
+            }`}
+          >
+            <Link
+              href={"/pages/AdminPage/AmDashboard"}
+              className="flex  gap-1 items-center w-max  "
+            >
+              <div>
+                <FaHome size={25} />
+              </div>
+              <div className="w-max">หน้าหลัก</div>
+            </Link>
+            <Link
+              href={"/pages/AdminPage/EditProducts"}
+              className="flex gap-1 items-center w-max"
+            >
+             <BsBasket2 size={25}/>
+              <div className="w-max">ข้อมูลสินค้า</div>
+            </Link>
+            <Link
+              href={"/pages/AdminPage/EditCustomor"}
+              className="flex gap-1 items-center w-max"
+            >
+              <BsFillPersonFill size={25} />
+              <div className="w-max">ข้อมูลสมาชิก</div>
             </Link>
           </div>
           <div className="flex items-center justify-end w-full gap-3">
@@ -146,7 +187,11 @@ export default function Navbar({ request }) {
               ></img>
             )}
             <button
-              className="flex relative items-center w-ful h-full"
+              className={`${
+                dataUser != null && dataUser.isAdmin === true
+                  ? "hidden"
+                  : " flex relative items-center w-ful h-full"
+              }`}
               onClick={() => {
                 setMarketOpen(!MarketOpen);
                 handletheme();
@@ -162,27 +207,27 @@ export default function Navbar({ request }) {
             <button
               className={`${
                 dataUser == null
-                  ? "bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
+                  ? "bg-green-600 text-white p-3 rounded-xl max-xl:hidden"
                   : "hidden"
               }`}
               onClick={() => setLoginOpen(!LoginOpen)}
             >
               เข้าสู่ระบบ
             </button>
-            <button
+            <Link
+              href={"/pages/AdminPage/AmDashboard"}
               className={`${
-                dataUser != null  && dataUser.isAdmin === true 
-                  ? "bg-green-600 text-white p-3 rounded-xl max-lg:hidden"
+                dataUser != null && dataUser.isAdmin === true
+                  ? "bg-green-600 text-white p-3 rounded-xl max-xl:hidden"
                   : "hidden"
               }`}
-              onClick={() => setLoginOpen(!LoginOpen)}
             >
               Admin manage
-            </button>
+            </Link>
             <button
               className={`${
                 dataUser != null
-                  ? "bg-red-600 text-white p-3 rounded-xl max-lg:hidden"
+                  ? "bg-red-600 text-white p-3 rounded-xl max-xl:hidden"
                   : "hidden"
               }`}
               onClick={onLogout}
@@ -192,7 +237,7 @@ export default function Navbar({ request }) {
             <button
               className={`${
                 dataUser == null
-                  ? "bg-yellow-500 text-white p-3 rounded-xl max-lg:hidden"
+                  ? "bg-yellow-500 text-white p-3 rounded-xl max-xl:hidden"
                   : "hidden"
               } `}
               onClick={() => setRegisOpen(!RegisOpen)}
@@ -201,14 +246,14 @@ export default function Navbar({ request }) {
             </button>
             <BsList
               size={35}
-              className={`lg:hidden ${
+              className={`xl:hidden ${
                 Hamberger === false ? "block" : "hidden"
               }`}
               onClick={() => setHamberger(!Hamberger)}
             />
             <BsXLg
               size={35}
-              className={`lg:hidden  ${
+              className={`xl:hidden  ${
                 Hamberger === true ? "block" : "hidden"
               }`}
               onClick={() => setHamberger(!Hamberger)}
@@ -217,7 +262,7 @@ export default function Navbar({ request }) {
         </div>
       </nav>
       <div
-        className={`w-full lg:hidden px-5 shadow-xl overflow-hidden flex flex-col ${
+        className={`w-full xl:hidden px-5 shadow-xl overflow-hidden flex flex-col ${
           Hamberger === false ? " h-0 duration-500" : "h-44 duration-500"
         }`}
       >

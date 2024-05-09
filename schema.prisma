@@ -13,8 +13,8 @@ datasource db {
 model Product {
   id           String     @default(cuid()) @id
   img          String
-  Title        String?
-  detail       String?
+  Title        String
+  detail       String
   price        Int        // Specify Int data type for price
   createdAt    DateTime   @default(now()) @map(name: "created_at")
   updatedAt    DateTime   @updatedAt @map(name: "updated_at")

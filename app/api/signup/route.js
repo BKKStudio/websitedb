@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 
 export async function POST(requst) {
   try {
-    const { name, username, password } = await requst.json();
+    const { name, username, password,avatar } = await requst.json();
 
     //check if user already exists
     const user = await prisma.User.findUnique({
@@ -28,6 +28,7 @@ export async function POST(requst) {
 
     const newUser = await prisma.User.create({
       data: {
+        img:avatar,
         name,
         username,
         password: hashedPassword,

@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React from "react";
 import { BsXLg } from "react-icons/bs";
 import Logolight from "@/public/Images/Logo/Logolight.png";
 import Image from "next/image";
 import { useState } from "react";
 
-
+import Swal from "sweetalert2";
 
 export default function LoginModal({ LoginOpen, setLoginOpen }) {
   const [user, setUser] = useState({
@@ -13,18 +13,37 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
     password: "",
   });
 
-
-
   const Onlogin = async () => {
+    let timerInterval;
+    Swal.fire({
+      title: "กำลังเข้าสู่ระบบ",
+      html: "I will close in <b></b> milliseconds.",
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log("I was closed by the timer");
+      }
+    });
     try {
-      const response = await fetch(`${process.env.DOMAIN}/api/product`, {
+      const response = await fetch(`/api/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(user),
       });
-      console.log("Login success", response.data);
     } catch (error) {
       console.log("Login failed", error.message);
     }
@@ -48,7 +67,7 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
               <button
                 className="p-3 rounded-full bg-white"
                 onClick={() => {
-                    setLoginOpen(false);
+                  setLoginOpen(false);
                 }}
               >
                 <BsXLg />
@@ -71,7 +90,11 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                   <div className="text-3xl text-center font-bold">
                     เข้าสู่ระบบ
                   </div>
-                  <form method="post" className="w-full flex flex-col gap-3"  onSubmit={Onlogin}>
+                  <form
+                    method="post"
+                    className="w-full flex flex-col gap-3"
+                    onSubmit={Onlogin}
+                  >
                     <div className="flex ">
                       <label
                         htmlFor="Username"
@@ -84,7 +107,9 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                         name="username"
                         id="username"
                         value={user.username}
-                        onChange={(e) => setUser({ ...user, username: e.target.value })}
+                        onChange={(e) =>
+                          setUser({ ...user, username: e.target.value })
+                        }
                         className="bg-gray-200 rounded-r-xl"
                         placeholder="  กรอกชื่อผู้ใช้ของคุณ"
                       />
@@ -101,7 +126,9 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                         name="password"
                         id="password"
                         value={user.password}
-                        onChange={(e) => setUser({ ...user, password: e.target.value })}
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
+                        }
                         className="bg-gray-200 rounded-r-xl"
                         placeholder="  กรอกรหัสผ่านของคุณ"
                       />
@@ -120,7 +147,13 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
                         สมัครสมาชิก
                       </label>
                     </div>
-                    <button type="submit" className="bg-yellow-500 p-2 text-white font-bold rounded-xl" onClick={Onlogin}>เข้าสู่ระบบ</button>
+                    <button
+                      type="submit"
+                      className="bg-yellow-500 p-2 text-white font-bold rounded-xl"
+                      onClick={Onlogin}
+                    >
+                      เข้าสู่ระบบ
+                    </button>
                   </form>
                 </div>
               </div>

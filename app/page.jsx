@@ -17,7 +17,7 @@ export default function Home() {
     async function fetchData() {
       try {
         // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`${process.env.DOMAIN}/api/product`); // Example API endpoint
+        const response = await fetch("/api/product"); // Example API endpoint
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -30,7 +30,6 @@ export default function Home() {
 
  return (
     <div>
-      <Navbar />
       <main className="flex justify-center">
         <article className="max-w-7xl w-full ">
           <Slide />
