@@ -1,3 +1,4 @@
+"use client"
 import Calendar from "@/app/components/Calendar";
 import React, { useEffect, useState } from "react";
 
