@@ -43,7 +43,7 @@ export default function page() {
     fetchDataAdmin();
     fetchDataCustomor();
     fetchData();
-  }, [amountProduct, amountCustomor, amountAdmin]);
+  }, []);
 
   return (
     <main className="w-full flex justify-center mt-4">
