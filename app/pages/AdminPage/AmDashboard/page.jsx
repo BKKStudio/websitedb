@@ -1,11 +1,10 @@
 "use client"
-import Calendar from "@/app/components/Calendar";
 import React, { useEffect, useState } from "react";
 
 export default function Page() {
-  const [amountProduct, setAmountProduct] = useState(0);
-  const [amountCustomer, setAmountCustomer] = useState(0);
-  const [amountAdmin, setAmountAdmin] = useState(0);
+  const [amountProduct, setAmountProduct] = useState([]);
+  const [amountCustomer, setAmountCustomer] = useState([]);
+  const [amountAdmin, setAmountAdmin] = useState([]);
   
   useEffect(() => {
     async function fetchData() {
@@ -20,7 +19,7 @@ export default function Page() {
 
     async function fetchDataCustomer() {
       try {
-        const response = await fetch(`/api/customers`); 
+        const response = await fetch(`/api/customors`); 
         const data = await response.json();
         setAmountCustomer(data.length);
       } catch (error) {
@@ -38,17 +37,14 @@ export default function Page() {
       }
     }
 
-    if (typeof window !== 'undefined') {
-      fetchDataAdmin();
-      fetchDataCustomer();
-      fetchData();
-    }
+    fetchDataAdmin();
+    fetchDataCustomer();
+    fetchData();
   }, []);
 
   return (
     <main className="w-full flex justify-center mt-4">
       <article className="max-w-7xl w-full">
-        <Calendar className="mt-12"/>
         <div className="w-full grid grid-cols-3 gap-8">
           <div className="w-full h-full px-3 py-8 bg-sky-300 shadow-xl rounded-xl text-2xl font-bold flex flex-col gap-6  ">
             <span>จำนวนสินค้า</span>

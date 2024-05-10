@@ -1,10 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/pages/AdminPage/AmDashboard/page": "app/pages/AdminPage/AmDashboard/page.js",
-  "/pages/AdminPage/EditProducts/page": "app/pages/AdminPage/EditProducts/page.js",
-  "/pages/AdminPage/Addproduct/page": "app/pages/AdminPage/Addproduct/page.js",
-  "/pages/AdminPage/EditProducts/[id]/page": "app/pages/AdminPage/EditProducts/[id]/page.js",
-  "/api/user/route": "app/api/user/route.js",
+  "/api/customors/route": "app/api/customors/route.js",
+  "/api/admin/route": "app/api/admin/route.js",
   "/api/product/route": "app/api/product/route.js"
 }

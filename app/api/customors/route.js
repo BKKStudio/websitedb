@@ -9,6 +9,7 @@ export async function GET(request){
              isAdmin: false,
             },
           })
+        
         return NextResponse.json(user)
     } catch (error) {
         return NextResponse.json({error: error.message}, {status: 400});
