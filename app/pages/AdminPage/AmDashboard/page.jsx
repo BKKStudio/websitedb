@@ -1,4 +1,4 @@
-"use client";
+"use server";
 import Calendar from "@/app/components/Calendar";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -11,8 +11,7 @@ export default function page() {
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`/api/product`); // Example API endpoint
+        const response = await fetch(`/api/product`); 
         const data = await response.json();
         setamountProduct(data.length);
       } catch (error) {
@@ -21,8 +20,7 @@ export default function page() {
     }
     async function fetchDataCustomor() {
       try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`/api/customors`); // Example API endpoint
+        const response = await fetch(`/api/customors`); 
         const data = await response.json();
         setamountCustomor(data.length);
       } catch (error) {
@@ -32,8 +30,7 @@ export default function page() {
 
     async function fetchDataAdmin() {
       try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`/api/admin`); // Example API endpoint
+        const response = await fetch(`/api/admin`); 
         const data = await response.json();
         setamountAdmin(data.length);
       } catch (error) {
