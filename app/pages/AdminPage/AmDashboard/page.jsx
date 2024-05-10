@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 
-export default function Page() {
+export default function page() {
   const [amountProduct, setAmountProduct] = useState([]);
   const [amountCustomer, setAmountCustomer] = useState([]);
   const [amountAdmin, setAmountAdmin] = useState([]);
@@ -10,8 +10,8 @@ export default function Page() {
   async function fetchData() {
     try {
       const response = await fetch(`/api/product`); 
-      const data = await response.json();
-      setAmountProduct(data.length);
+      const dataproduct = await response.json();
+      setAmountProduct(dataproduct.length);
     } catch (error) {
       console.error("Error fetching Product data:", error);
     }
@@ -20,8 +20,8 @@ export default function Page() {
   async function fetchDataCustomer() {
     try {
       const response = await fetch(`/api/customors`); 
-      const data = await response.json();
-      setAmountCustomer(data.length);
+      const dataCus = await response.json();
+      setAmountCustomer(dataCus.length);
     } catch (error) {
       console.error("Error fetching Customer data:", error);
     }
@@ -30,14 +30,14 @@ export default function Page() {
   async function fetchDataAdmin() {
     try {
       const response = await fetch(`/api/admin`); 
-      const data = await response.json();
-      setAmountAdmin(data.length);
+      const dataAdmin = await response.json();
+      setAmountAdmin(dataAdmin.length);
     } catch (error) {
       console.error("Error fetching Admin data:", error);
     }
   }
 
-  
+
   useEffect(() => {
    
     fetchDataAdmin();
@@ -51,15 +51,15 @@ export default function Page() {
         <div className="w-full grid grid-cols-3 gap-8">
           <div className="w-full h-full px-3 py-8 bg-sky-300 shadow-xl rounded-xl text-2xl font-bold flex flex-col gap-6  ">
             <span>จำนวนสินค้า</span>
-            <span className="text-center text-5xl">{amountProduct} ชิ้น</span>
+            <span className="text-center text-5xl">ชิ้น</span>
           </div>
           <div className="w-full h-full px-3 py-8 bg-green-300 shadow-xl rounded-xl text-2xl font-bold flex flex-col gap-6  ">
             <span>จำนวนลูกค้า</span>
-            <span className="text-center text-5xl">{amountCustomer} คน</span>
+            <span className="text-center text-5xl"> คน</span>
           </div>
           <div className="w-full h-full px-3 py-8 shadow-xl bg-orange-300 rounded-xl text-2xl font-bold flex flex-col gap-6  ">
             <span>จำนวนผู้ดูแลระบบ</span>
-            <span className="text-center text-5xl">{amountAdmin} คน</span>
+            <span className="text-center text-5xl"> คน</span>
           </div>
         </div>
       </article>

@@ -1,8 +1,9 @@
 {
   "/pages/AdminPage/AmDashboard/page": "app/pages/AdminPage/AmDashboard/page.js",
   "/pages/Allproducts/page": "app/pages/Allproducts/page.js",
-  "/api/product/route": "app/api/product/route.js",
   "/pages/AdminPage/EditProducts/page": "app/pages/AdminPage/EditProducts/page.js",
+  "/api/user/route": "app/api/user/route.js",
   "/api/admin/route": "app/api/admin/route.js",
-  "/api/customors/route": "app/api/customors/route.js"
+  "/api/customors/route": "app/api/customors/route.js",
+  "/api/product/route": "app/api/product/route.js"
 }
