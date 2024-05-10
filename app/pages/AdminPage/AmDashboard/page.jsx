@@ -6,37 +6,40 @@ export default function Page() {
   const [amountCustomer, setAmountCustomer] = useState([]);
   const [amountAdmin, setAmountAdmin] = useState([]);
   
+
+  async function fetchData() {
+    try {
+      const response = await fetch(`/api/product`); 
+      const data = await response.json();
+      setAmountProduct(data.length);
+    } catch (error) {
+      console.error("Error fetching Product data:", error);
+    }
+  }
+
+  async function fetchDataCustomer() {
+    try {
+      const response = await fetch(`/api/customors`); 
+      const data = await response.json();
+      setAmountCustomer(data.length);
+    } catch (error) {
+      console.error("Error fetching Customer data:", error);
+    }
+  }
+
+  async function fetchDataAdmin() {
+    try {
+      const response = await fetch(`/api/admin`); 
+      const data = await response.json();
+      setAmountAdmin(data.length);
+    } catch (error) {
+      console.error("Error fetching Admin data:", error);
+    }
+  }
+
+  
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`/api/product`); 
-        const data = await response.json();
-        setAmountProduct(data.length);
-      } catch (error) {
-        console.error("Error fetching Product data:", error);
-      }
-    }
-
-    async function fetchDataCustomer() {
-      try {
-        const response = await fetch(`/api/customors`); 
-        const data = await response.json();
-        setAmountCustomer(data.length);
-      } catch (error) {
-        console.error("Error fetching Customer data:", error);
-      }
-    }
-
-    async function fetchDataAdmin() {
-      try {
-        const response = await fetch(`/api/admin`); 
-        const data = await response.json();
-        setAmountAdmin(data.length);
-      } catch (error) {
-        console.error("Error fetching Admin data:", error);
-      }
-    }
-
+   
     fetchDataAdmin();
     fetchDataCustomer();
     fetchData();

@@ -10,6 +10,17 @@
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/pages/Allproducts/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/Allproducts/page.css",
+      "static/chunks/app/pages/Allproducts/page.js"
+    ],
+    "/pages/AdminPage/EditProducts/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pages/AdminPage/EditProducts/page.js"
     ]
   }
 }
