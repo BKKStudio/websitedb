@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 export default function Page() {
   const [amountProduct, setAmountProduct] = useState([]);
   const [amountCustomer, setAmountCustomer] = useState([]);
-  const [amountAdmin, setAmountAdmin] = useState([0]);
+  const [amountAdmin, setAmountAdmin] = useState([]);
   
   useEffect(() => {
     async function fetchData() {
