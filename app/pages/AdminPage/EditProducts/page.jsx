@@ -24,9 +24,9 @@ export default function page() {
           method: "DELETE",
         });
         Swal.fire("ลบสินค้า!", "ลบสินค้าสำเร็จแล้ว.", "success");
-        router.refresh();
-        router.push("/pages/AdminPage/EditProducts");
+
       }
+      router.refresh();
     });
   };
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function page() {
       }
     }
     fetchData();
-  }, [amountProduct]);
+  }, []);
 
   return (
     <React.Fragment>

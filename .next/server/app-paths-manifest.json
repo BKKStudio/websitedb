@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/pages/AdminPage/AmDashboard/page": "app/pages/AdminPage/AmDashboard/page.js",
+  "/pages/AdminPage/EditProducts/page": "app/pages/AdminPage/EditProducts/page.js",
+  "/pages/AdminPage/Addproduct/page": "app/pages/AdminPage/Addproduct/page.js",
+  "/pages/AdminPage/EditProducts/[id]/page": "app/pages/AdminPage/EditProducts/[id]/page.js"
+}

@@ -15,8 +15,8 @@ import BasketModal from "./Modal/Basket";
 import { ModeToggle } from "./Theme/btntoggle";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { BsBasket2,BsFillPersonFill  } from "react-icons/bs";
-
+import { BsBasket2, BsFillPersonFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ request }) {
   const [cart, setCart] = useState([]);
@@ -27,6 +27,7 @@ export default function Navbar({ request }) {
   const [theme, setTheme] = useState("");
   const [dataUser, setdataUser] = useState(null);
 
+const router = useRouter()
   const handletheme = () => {
     setTheme(localStorage.getItem("theme"));
   };
@@ -55,13 +56,14 @@ export default function Navbar({ request }) {
         throw new Error("Failed Fetch Data");
       } else {
         setdataUser(null);
-       if(dataUser){
-        Swal.fire({
-          title: "Log Out!",
-          text: "LogOut Success",
-          icon: "success",
-        });
-       }
+        if (dataUser) {
+          Swal.fire({
+            title: "Log Out!",
+            text: "LogOut Success",
+            icon: "success",
+          });
+        }
+        router.push("/")
       }
     } catch (error) {
       console.log(error);
@@ -109,7 +111,7 @@ export default function Navbar({ request }) {
           ></Image>
           <div
             className={`${
-              dataUser != null && dataUser.isAdmin === true
+              dataUser != null && dataUser.isAdmin === true 
                 ? "hidden"
                 : "flex gap-6 w-full max-xl:hidden font-bold"
             }`}
@@ -136,7 +138,7 @@ export default function Navbar({ request }) {
           {/* Admin Nav */}
           <div
             className={`${
-              dataUser != null && dataUser.isAdmin === true
+              dataUser != null && dataUser.isAdmin === true 
                 ? "flex gap-6 w-full max-xl:hidden font-bold"
                 : "hidden"
             }`}
@@ -148,13 +150,14 @@ export default function Navbar({ request }) {
               <div>
                 <FaHome size={25} />
               </div>
-              <div className="w-max">หน้าหลัก</div>
+              <div className="w-max">DashBoard</div>
             </Link>
+            
             <Link
               href={"/pages/AdminPage/EditProducts"}
               className="flex gap-1 items-center w-max"
             >
-             <BsBasket2 size={25}/>
+              <BsBasket2 size={25} />
               <div className="w-max">ข้อมูลสินค้า</div>
             </Link>
             <Link
@@ -217,13 +220,15 @@ export default function Navbar({ request }) {
             <Link
               href={"/pages/AdminPage/AmDashboard"}
               className={`${
-                dataUser != null && dataUser.isAdmin === true
+                dataUser != null &&
+                dataUser.isAdmin === true 
                   ? "bg-green-600 text-white p-3 rounded-xl max-xl:hidden"
                   : "hidden"
               }`}
             >
               Admin manage
             </Link>
+ 
             <button
               className={`${
                 dataUser != null
