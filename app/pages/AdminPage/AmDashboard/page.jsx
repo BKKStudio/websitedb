@@ -40,9 +40,7 @@ export default function page() {
 
   useEffect(() => {
    
-    fetchDataAdmin();
-    fetchDataCustomer();
-    fetchData();
+ 
   }, []);
 
   return (
