@@ -1,7 +1,8 @@
 {
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/pages/AdminPage/AmDashboard/page": "app/pages/AdminPage/AmDashboard/page.js",
-  "/api/customors/route": "app/api/customors/route.js",
+  "/api/user/route": "app/api/user/route.js",
   "/api/admin/route": "app/api/admin/route.js",
+  "/api/customors/route": "app/api/customors/route.js",
   "/api/product/route": "app/api/product/route.js"
 }
