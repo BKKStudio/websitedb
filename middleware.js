@@ -26,9 +26,8 @@ export const config = {
     matcher: [
       '/',
       '/pages/AdminPage/Addproduct',
-      '/pages/AdminPage/AmDashboard',
       '/pages/AdminPage/EditCustomor',
       '/pages/AdminPage/Products',
-      
+      '/pages/Allproduct'
     ]
   }

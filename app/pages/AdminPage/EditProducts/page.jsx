@@ -33,7 +33,7 @@ export default function page() {
     async function fetchData() {
       try {
         // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`/api/product`); // Example API endpoint
+        const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`); // Example API endpoint
         const data = await response.json();
         setamountProduct(data);
       } catch (error) {
@@ -56,7 +56,7 @@ export default function page() {
             </div>
           </div>
 
-          <table className="w-full max-lg:w-max border ">
+          <table className="w-full max-lg:w-max border max-lg:overflow-auto">
             <thead>
               <tr>
                 <th className="border p-2">รูปสินค้า</th>

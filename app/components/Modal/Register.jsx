@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import Swal from 'sweetalert2'
 
 export default function RegisterModal({ RegisOpen, setRegisOpen }) {
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
     avatar: "",
     name: "",
     username: "",

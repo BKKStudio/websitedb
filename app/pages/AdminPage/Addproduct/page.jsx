@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ProductPage() {
   const [product, setProduct] = useState({
@@ -19,7 +20,7 @@ const router = useRouter()
       return;
     }
     try {
-      const res = await fetch(`/api/product`, {
+      const res = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -164,6 +165,7 @@ const router = useRouter()
               >
                 เพิ่มสินค้า
               </button>
+              <Link href={"/pages/AdminPage/EditProducts"} className="w-full text-center p-2 bg-red-500 rounded-xl font-bold text-white">ยกเลิก</Link>
             </form>
           </div>
         </div>

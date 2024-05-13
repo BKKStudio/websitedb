@@ -69,6 +69,9 @@ const router = useRouter()
       console.log(error);
     }
   };
+
+
+
   useEffect(() => {
     // const savedCart = localStorage.getItem("cart");
     // if (savedCart) {
@@ -129,10 +132,6 @@ const router = useRouter()
               <IoGameControllerSharp size={25} />
               <div className="w-max">บอร์ดเกมทั้งหมด</div>
             </Link>
-            <Link href={""} className="flex gap-1 items-center w-max">
-              <FaMoneyCheckDollar size={25} />
-              <div className="w-max">บอร์ดเกมแนะนำ</div>
-            </Link>
           </div>
 
           {/* Admin Nav */}
@@ -144,13 +143,13 @@ const router = useRouter()
             }`}
           >
             <Link
-              href={"/pages/AdminPage/AmDashboard"}
+              href={"/"}
               className="flex  gap-1 items-center w-max  "
             >
               <div>
                 <FaHome size={25} />
               </div>
-              <div className="w-max">DashBoard</div>
+              <div className="w-max">หน้าแรก</div>
             </Link>
             
             <Link
@@ -218,7 +217,7 @@ const router = useRouter()
               เข้าสู่ระบบ
             </button>
             <Link
-              href={"/pages/AdminPage/AmDashboard"}
+              href={"/pages/AdminPage/EditProducts"}
               className={`${
                 dataUser != null &&
                 dataUser.isAdmin === true 

@@ -32,7 +32,7 @@ export default function BasketModal({
 
     //   // Calculate initial total price from the cart items
     // }
-  }, [cart]);
+  }, []);
 
   return (
     <React.Fragment>

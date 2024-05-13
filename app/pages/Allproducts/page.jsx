@@ -14,7 +14,7 @@ export default function page() {
     async function fetchData() {
       try {
         // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`/api/product`); // Example API endpoint
+        const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`); // Example API endpoint
         const data = await response.json();
         setProducts(data);
       } catch (error) {

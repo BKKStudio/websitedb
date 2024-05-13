@@ -37,7 +37,7 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
       }
     });
     try {
-      const response = await fetch(`/api/login`, {
+      const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

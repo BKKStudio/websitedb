@@ -41,7 +41,7 @@ export default function ProductPage({ params }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch(`/api/product/${id}`, {
+      const res = await fetch(`https://api-backend-six-zeta.vercel.app/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
