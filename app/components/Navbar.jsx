@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 import { BsBasket2, BsFillPersonFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
-export default function Navbar({ request }) {
+export default function Navbar() {
   const [cart, setCart] = useState([]);
   const [LoginOpen, setLoginOpen] = useState(false);
   const [RegisOpen, setRegisOpen] = useState(false);
@@ -34,12 +34,13 @@ const router = useRouter()
 
   const getUser = async () => {
     try {
-      const res = await fetch(`/api/user`, {
+      const res = await fetch(`https://api-backend-o8j2a54xs-bkkstudios-projects.vercel.app/api/users`, {
         cache: "no-store",
       });
       if (!res.ok) {
         throw new Error("Failed to fetch user data");
       }
+      console.log(res);
       return res.json();
     } catch (error) {
       console.error(error);

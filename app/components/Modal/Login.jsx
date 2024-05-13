@@ -37,13 +37,16 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
       }
     });
     try {
-      const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/login`, {
+      const response = await fetch(`https://api-backend-ny9iyhqu4-bkkstudios-projects.vercel.app/api/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(user),
       });
+      if(response.ok ){
+        console.log("success");
+      }
     } catch (error) {
       console.log("Login failed", error.message);
     }

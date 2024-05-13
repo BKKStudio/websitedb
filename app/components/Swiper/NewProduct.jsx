@@ -66,7 +66,7 @@ export default function NewProductSwiper({ products }) {
                     <div className="flex  w-full pl-3">
                       <div className="flex flex-col  w-full h-auto ">
                         <span className="text-md  font-bold pt-4">
-                          {product.Title}
+                          {product.title}
                         </span>
                         <span className="text-md text-gray-500  pb-4 ">
                           ฿{product.price}

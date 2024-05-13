@@ -25,7 +25,7 @@ export async function POST(request) {
         const tokenUser = {
             id: user.id,
             username: user.username,
-            isAdmin: user.isAdmin,
+            isAdmin: user.isadmin,
         };
 
         // Create JWT token
