@@ -12,7 +12,7 @@ app.prepare().then(() => {
   // Allow requests from 'https://rsu-admin-3aj3whave-bkkstudio.vercel.app'
   server.use(
     cors({
-      origin: 'https://rsu-admin.netlify.app',
+      origin: 'https://api-backend-six-zeta.vercel.app/',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       credentials: true,
     })
