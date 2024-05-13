@@ -14,18 +14,21 @@ import { useEffect ,useState} from "react";
 export default function Home() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch("https://api-backend-six-zeta.vercel.app/api/products"); // Example API endpoint
+        const response = await fetch("https://api-backend-six-zeta.vercel.app/api/products");
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
         const data = await response.json();
         setProducts(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
+        // Handle error (e.g., display an error message to the user)
       }
-    }
-
-    fetchData();
+    };
+    
+    fetchData(); // Call the function to fetch data when the component mounts or when needed
   }, []);
 
  return (
