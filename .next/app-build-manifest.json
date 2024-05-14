@@ -22,6 +22,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/pages/AdminPage/EditProducts/page.js"
+    ],
+    "/pages/AdminPage/Addproduct/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pages/AdminPage/Addproduct/page.js"
     ]
   }
 }

@@ -34,10 +34,9 @@ export default function page() {
           method: "DELETE",
         });
         Swal.fire("ลบสินค้า!", "ลบสินค้าสำเร็จแล้ว.", "success");
-
+        fetchData();
+        router.refresh();
       }
-      fetchData();
-      router.refresh();
     });
   };
   

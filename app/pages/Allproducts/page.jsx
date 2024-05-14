@@ -14,6 +14,20 @@ export default function page() {
   const [productBYid, setProductByid] = useState(null);
   const [LoginOpen, setLoginOpen] = useState(false);
 
+  async function fetchData() {
+    try {
+      // Fetch data from an API endpoint or any other data source
+      const response = await fetch(
+        `https://api-backend-six-zeta.vercel.app/api/products`
+      ); // Example API endpoint
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  
   const getProductById = async (id) => {
     try {
       const response = await fetch(
@@ -31,19 +45,6 @@ export default function page() {
   };
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch(
-          `https://api-backend-six-zeta.vercel.app/api/products`
-        ); // Example API endpoint
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
     fetchData();
   }, []);
 
