@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 const getProductById = async (id) => {
   try {
-    const res = await fetch(`/api/product/${id}`, {
+    const res = await fetch(`https://api-backend-six-zeta.vercel.app/api/products/${id}`, {
       cache: "no-store",
     });
     if (!res.ok) {
@@ -26,8 +26,8 @@ export default function ProductPage({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { product } = await getProductById(id);
-        setProduct(product);
+        const  product  = await getProductById(id);
+        setProduct(product[0]);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -46,11 +46,12 @@ export default function ProductPage({ params }) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ product }),
+        body: JSON.stringify(product),
       });
       if (!res.ok) {
         throw new Error("Failed Update");
       }
+      
       Swal.fire({
         title: "คุณต้องการบันทึกการเปลี่ยนแปลงหรือไม่?",
         showDenyButton: true,
@@ -128,9 +129,9 @@ export default function ProductPage({ params }) {
                   type="text"
                   name="Title"
                   id="Title"
-                  value={product.Title}
+                  value={product.title}
                   onChange={(ev) =>
-                    setProduct({ ...product, Title: ev.target.value })
+                    setProduct({ ...product, title: ev.target.value })
                   }
                   className="bg-gray-200 rounded-r-xl text-[13px] w-full  text-black pl-4"
                   placeholder="  กรอกชื่อ-นามสกุลของคุณ"

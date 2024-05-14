@@ -9,6 +9,16 @@ export default function page() {
   const [amountProduct, setamountProduct] = useState([]);
 
   const router = useRouter();
+  async function fetchData() {
+    try {
+      // Fetch data from an API endpoint or any other data source
+      const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`); // Example API endpoint
+      const data = await response.json();
+      setamountProduct(data);
+    } catch (error) {
+      console.error("Error fetching Product data:", error);
+    }
+  }
   const removedata = async (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -20,26 +30,19 @@ export default function page() {
       confirmButtonText: "ใช่, ลบข้อมูล!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`/api/product?id=${id}`, {
+        fetch(`https://api-backend-six-zeta.vercel.app/api/products/${id}`, {
           method: "DELETE",
         });
         Swal.fire("ลบสินค้า!", "ลบสินค้าสำเร็จแล้ว.", "success");
 
       }
+      fetchData();
       router.refresh();
     });
   };
+  
   useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`); // Example API endpoint
-        const data = await response.json();
-        setamountProduct(data);
-      } catch (error) {
-        console.error("Error fetching Product data:", error);
-      }
-    }
+  
     fetchData();
   }, []);
 
@@ -80,7 +83,7 @@ export default function page() {
                       />
                     </td>
                     <td className="border text-base p-2 font-bold text-center">
-                      <span>{product.Title}</span>
+                      <span>{product.title}</span>
                     </td>
                     <td className="border text-base p-2 font-bold text-center">
                       {product.detail}

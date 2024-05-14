@@ -34,7 +34,7 @@ const router = useRouter()
 
   const getUser = async () => {
     try {
-      const res = await fetch(`https://api-backend-o8j2a54xs-bkkstudios-projects.vercel.app/api/users`, {
+      const res = await fetch(`https://api-backend-six-zeta.vercel.app/api/getDataToken`, {
         cache: "no-store",
       });
       if (!res.ok) {

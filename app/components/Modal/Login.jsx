@@ -14,30 +14,30 @@ export default function LoginModal({ LoginOpen, setLoginOpen }) {
   });
 
   const Onlogin = async () => {
-    let timerInterval;
-    Swal.fire({
-      title: "กำลังเข้าสู่ระบบ",
-      html: "I will close in <b></b> milliseconds.",
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup().querySelector("b");
-        timerInterval = setInterval(() => {
-          timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
-        console.log("I was closed by the timer");
-      }
-    });
+    // let timerInterval;
+    // Swal.fire({
+    //   title: "กำลังเข้าสู่ระบบ",
+    //   html: "I will close in <b></b> milliseconds.",
+    //   timer: 3000,
+    //   timerProgressBar: true,
+    //   didOpen: () => {
+    //     Swal.showLoading();
+    //     const timer = Swal.getPopup().querySelector("b");
+    //     timerInterval = setInterval(() => {
+    //       timer.textContent = `${Swal.getTimerLeft()}`;
+    //     }, 100);
+    //   },
+    //   willClose: () => {
+    //     clearInterval(timerInterval);
+    //   },
+    // }).then((result) => {
+    //   /* Read more about handling dismissals below */
+    //   if (result.dismiss === Swal.DismissReason.timer) {
+    //     console.log("I was closed by the timer");
+    //   }
+    // });
     try {
-      const response = await fetch(`https://api-backend-ny9iyhqu4-bkkstudios-projects.vercel.app/api/login`, {
+      const response = await fetch(`http://localhost:5000/api/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

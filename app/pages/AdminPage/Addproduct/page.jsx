@@ -110,9 +110,9 @@ const router = useRouter()
                   type="text"
                   name="Title"
                   id="Title"
-                  value={product.Title}
+                  value={product.title}
                   onChange={(ev) =>
-                    setProduct({ ...product, Title: ev.target.value })
+                    setProduct({ ...product, title: ev.target.value })
                   }
                   className="bg-gray-200 rounded-r-xl text-[13px] w-full  text-black pl-4"
                   placeholder="  กรอกชื่อ-นามสกุลของคุณ"
