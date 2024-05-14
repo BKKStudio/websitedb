@@ -29,7 +29,7 @@ export default function page() {
     <>
       <main className="w-full flex  justify-center">
         <article className="max-w-7xl w-full">
-          <Image src={Img1} alt="" className="w-full"></Image>
+      <Slide/>
           <div className="flex justify-center">
             <span className="text-3xl text-center mt-4">สินค้าทั้งหมด</span>
           </div>
@@ -52,7 +52,7 @@ export default function page() {
                           <div className="flex  w-full pl-3">
                             <div className="flex flex-col  w-full h-auto ">
                               <span className="text-md  font-bold pt-4">
-                                {product.Title}
+                                {product.title}
                               </span>
                               <span className="text-md text-gray-500  pb-4 ">
                                 ฿{product.price}
