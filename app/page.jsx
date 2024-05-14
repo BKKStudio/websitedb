@@ -10,9 +10,15 @@ import Img2 from "@/public/Images/Counsel/2.webp"
 import Img3 from "@/public/Images/Counsel/3.webp"
 import Img4 from "@/public/Images/Counsel/4.webp"
 import { useEffect ,useState} from "react";
+import DetailModal from "./components/Modal/DetailModal";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [productBYid,setProductByid] = useState(null)
+  const [LoginOpen, setLoginOpen] = useState(false)
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,8 +37,11 @@ export default function Home() {
     fetchData(); // Call the function to fetch data when the component mounts or when needed
   }, []);
 
+
+
  return (
     <div>
+      <DetailModal LoginOpen={LoginOpen} setLoginOpen={setLoginOpen} productBYid={productBYid} setProductByid={setProductByid}/>
       <main className="flex justify-center">
         <article className="max-w-7xl w-full ">
           <Slide />
@@ -46,7 +55,7 @@ export default function Home() {
                 สินค้าทั้งหมด
               </Link>
             </div>
-            <NewProductSwiper products={products}/>
+            <NewProductSwiper products={products} LoginOpen={LoginOpen} setLoginOpen={setLoginOpen} productBYid={productBYid} setProductByid={setProductByid}/>
             <div className="flex justify-between items-center mb-8">
               <Link
                 href={"/pages/Allproducts"}

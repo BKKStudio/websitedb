@@ -184,6 +184,12 @@ export default function ProductPage({ params }) {
               >
                 แก้ไขข้อมูลสินค้า
               </button>
+              <button
+                className="bg-red-500 p-2 text-white font-bold rounded-xl"
+                type="submit"
+              >
+               ย้อนกลับ
+              </button>
             </form>
           </div>
         </div>

@@ -6,15 +6,37 @@ import Img1 from "@/public/Images/AllProductImg/1.webp";
 import Link from "next/link";
 import { useState, useEffect, useRouter } from "react";
 import NewProductSwiper from "@/app/components/Swiper/NewProduct";
+import React from "react";
+import DetailModal from "@/app/components/Modal/DetailModal";
 
 export default function page() {
   const [products, setProducts] = useState([]);
+  const [productBYid, setProductByid] = useState(null);
+  const [LoginOpen, setLoginOpen] = useState(false);
+
+  const getProductById = async (id) => {
+    try {
+      const response = await fetch(
+        `https://api-backend-six-zeta.vercel.app/api/products/${id}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      setProductByid(data[0]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Handle error (e.g., display an error message to the user)
+    }
+  };
 
   useEffect(() => {
     async function fetchData() {
       try {
         // Fetch data from an API endpoint or any other data source
-        const response = await fetch(`https://api-backend-six-zeta.vercel.app/api/products`); // Example API endpoint
+        const response = await fetch(
+          `https://api-backend-six-zeta.vercel.app/api/products`
+        ); // Example API endpoint
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -22,14 +44,20 @@ export default function page() {
       }
     }
 
-   fetchData();
+    fetchData();
   }, []);
 
   return (
-    <>
+    <React.Fragment>
+      <DetailModal
+        productBYid={productBYid}
+        setProductByid={setProductByid}
+        LoginOpen={LoginOpen}
+        setLoginOpen={setLoginOpen}
+      />
       <main className="w-full flex  justify-center">
         <article className="max-w-7xl w-full">
-      <Slide/>
+          <Slide />
           <div className="flex justify-center">
             <span className="text-3xl text-center mt-4">สินค้าทั้งหมด</span>
           </div>
@@ -61,17 +89,12 @@ export default function page() {
                           </div>
                           <div
                             className="p-4 bg-yellow-500 text-white font-bold text-center rounded-b-xl cursor-pointer"
-                            onClick={() =>
-                              addToCart(
-                                product.id,
-                                product.img,
-                                product.Title,
-                                product.detail,
-                                product.price
-                              )
-                            }
+                            onClick={() => {
+                              getProductById(product.id);
+                              setLoginOpen(!LoginOpen);
+                            }}
                           >
-                            หยิบใส่รถเข็น
+                            รายละเอียดสินค้าเพิ่มเติม
                           </div>
                         </div>
                       </div>
@@ -83,6 +106,6 @@ export default function page() {
           </div>
         </article>
       </main>
-    </>
+    </React.Fragment>
   );
 }

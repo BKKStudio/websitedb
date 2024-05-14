@@ -10,36 +10,30 @@ import Img1 from "@/public/Images/Product/1.webp";
 import Img2 from "@/public/Images/Product/2.png";
 import Img3 from "@/public/Images/Product/3.png";
 
-export default function NewProductSwiper({ products }) {
-  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
+export default function NewProductSwiper({
+  products,
+  setLoginOpen,
+  LoginOpen,
+  productBYid, setProductByid
+}) {
+
+  const getProductById = async (id) => {
+  try {
+    const response = await fetch(
+      `https://api-backend-six-zeta.vercel.app/api/products/${id}`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
     }
-  }, []);
+    const data = await response.json();
+    setProductByid(data[0]);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // Handle error (e.g., display an error message to the user)
+  }
+};
 
-  const addToCart = (
-    productId,
-    productimg,
-    productTitle,
-    productdetail,
-    productPrice
-  ) => {
-    setCart((prevCart) => {
-      const newItem = {
-        id: productId,
-        img: productimg,
-        Title: productTitle,
-        detail: productdetail,
-        price: productPrice,
-      };
-      const updatedCart = [...prevCart, newItem];
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
-    });
-  };
   return (
     <Swiper
       slidesPerView={"auto"}
@@ -75,17 +69,12 @@ export default function NewProductSwiper({ products }) {
                     </div>
                     <div
                       className="p-4 bg-yellow-500 text-white font-bold text-center rounded-b-xl cursor-pointer"
-                      onClick={() =>
-                        addToCart(
-                          product.id,
-                          product.img,
-                          product.Title,
-                          product.detail,
-                          product.price
-                        )
-                      }
+                      onClick={() => {
+                        setLoginOpen(!LoginOpen);
+                        getProductById(product.id);
+                      }}
                     >
-                      หยิบใส่รถเข็น
+                      รายละเอียดเพิ่มเติม
                     </div>
                   </div>
                 </div>
