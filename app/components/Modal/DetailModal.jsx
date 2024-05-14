@@ -44,13 +44,13 @@ console.log(productBYid);
               <div className="flex flex-col gap-3">
               <span className="text-center flex justify-center text-2xl font-bold">รายละเอียดสินค้า</span>
                 <div className="flex justify-center">
-                  <Image
+                  <img
                     src={productBYid.img}
                     alt=""
                     width={300}
                     height={300}
                     className="w-max shadow-2xl rounded-xl "
-                  ></Image>
+                  ></img>
                 </div>
                 <span className="mt-5 text-xl font-bold flex">ชื่อสินค้า:  <div className="font-medium ">{productBYid.title}</div></span>
                 <span className=" text-xl font-bold flex">ราคาสินค้า:  <div className="font-medium ">{productBYid.price}฿</div></span>

@@ -66,7 +66,7 @@ export default function page() {
             {products.map((product) => {
               return (
                 <div
-                  className=" flex w-[220px] justify-center  !h-full gap-4"
+                  className=" flex w-[220px] justify-center  !h-[380px] gap-4"
                   key={product.id}
                 >
                   <div className="w-full h-full">
