@@ -45,7 +45,7 @@ export default function NewProductSwiper({
       {products.map((product) => {
         return (
           <SwiperSlide
-            className=" !flex !w-[320px]  !h-[380px] gap-4"
+            className=" !flex !w-[320px]  !h-full gap-4"
             key={product.id}
           >
             <div className="w-full h-full">
