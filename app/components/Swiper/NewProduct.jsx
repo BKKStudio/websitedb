@@ -48,7 +48,7 @@ export default function NewProductSwiper({
             className=" !flex !w-[320px]  !h-full gap-4"
             key={product.id}
           >
-            <div className="w-full h-[380px]">
+            <div className="w-full h-full">
               <div className="rounded-xl shadow-xl  hover:shadow-3xl">
                 <div className="grid grid-col-3 items-center rounded-xl  duration-500 ">
                   <div className="relative">
